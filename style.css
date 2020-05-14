@@ -1,0 +1,28 @@
+html {
+  box-sizing: border-box;
+  padding: 1px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 700px;
+  height: 250px;
+  font-size: 20px;
+  margin: 0 auto;
+  background-color: antiquewhite;
+}
+
+.field {
+  display: grid;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
