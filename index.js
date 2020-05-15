@@ -3,7 +3,6 @@ class CountdownTimer {
     this.selector = selector;
     this.targetDate = targetDate;
     this.__CountersSart();
-    this.__CountersStop();
   }
 
   __CountersSart() {
