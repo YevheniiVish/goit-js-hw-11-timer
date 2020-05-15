@@ -2,10 +2,10 @@ class CountdownTimer {
   constructor({ selector, targetDate }) {
     this.selector = selector;
     this.targetDate = targetDate;
-    this.__CountersSart();
+    this.__CounterStart();
   }
 
-  __CountersSart() {
+  __CounterStart() {
     const currentTime = new Date().getTime();
     const endTime = this.targetDate.getTime();
     const time = endTime - currentTime;
@@ -36,7 +36,7 @@ class CountdownTimer {
     selectorLinksTimer.querySelector(`[data-value="secs"]`).textContent = secs;
 
     const timerID = setInterval(() => {
-      this.__CountersSart();
+      this.__CounterStart();
     }, 1000);
 
     if (currentTime >= endTime) {
