@@ -2,10 +2,11 @@ class CountdownTimer {
   constructor({ selector, targetDate }) {
     this.selector = selector;
     this.targetDate = targetDate;
-    this.__BegginTimer();
-   }
+    this.__CountersSart();
+    this.__CountersStop();
+  }
 
-  __BegginTimer() {
+  __CountersSart() {
     const currentTime = new Date().getTime();
     const endTime = this.targetDate.getTime();
     const time = endTime - currentTime;
@@ -34,18 +35,18 @@ class CountdownTimer {
     selectorLinksTimer.querySelector(`[data-value="mins"]`).textContent = mins;
 
     selectorLinksTimer.querySelector(`[data-value="secs"]`).textContent = secs;
-    
-    setInterval(() => {
-      this.__BegginTimer();
+
+    const timerID = setInterval(() => {
+      this.__CountersSart();
     }, 1000);
+
+    if (currentTime >= endTime) {
+      clearInterval(timerID);
+      return;
+    }
   }
 }
-// new CountdownTimer({
-//   selector: "#timer-1",
-//   targetDate: new Date("Jul 17, 2019"),
-// });
-
 new CountdownTimer({
   selector: "#timer-1",
-  targetDate: new Date("Jul 25, 2021"),
+  targetDate: new Date("May 25, 2020"),
 });
