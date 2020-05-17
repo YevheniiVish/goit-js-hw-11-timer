@@ -2,50 +2,57 @@ class CountdownTimer {
   constructor({ selector, targetDate }) {
     this.selector = selector;
     this.targetDate = targetDate;
-    this.__CounterStart();
+    this.selectorLinksTimer = document.querySelector(selector);
+
+    this.days = this.selectorLinksTimer.querySelector(`[data-value="days"]`);
+
+    this.hours = this.selectorLinksTimer.querySelector(`[data-value="hours"]`);
+
+    this.mins = this.selectorLinksTimer.querySelector(`[data-value="mins"]`);
+
+    this.secs = this.selectorLinksTimer.querySelector(`[data-value="secs"]`);
+
+    this.pad();
+    this.counterStart();
+    this.counterInterval();
   }
 
-  __CounterStart() {
+
+  pad(value) {
+    return String(value).padStart(2, "0");
+  }
+
+  counterStart() {
     const currentTime = new Date().getTime();
     const endTime = this.targetDate.getTime();
     const time = endTime - currentTime;
 
-    const pad = function pad(value) {
-      return String(value).padStart(2, "0");
-    };
+    this.days.textContent = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
 
-    const days = pad(Math.floor(time / (1000 * 60 * 60 * 24)));
-
-    const hours = pad(
+    this.hours.textContent = this.pad(
       Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     );
+    this.mins.textContent = this.pad(
+      Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))
+    );
 
-    const mins = pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
+    this.secs.textContent = this.pad(Math.floor((time % (1000 * 60)) / 1000));
+  }
 
-    const secs = pad(Math.floor((time % (1000 * 60)) / 1000));
-
-    const selectorLinksTimer = document.querySelector(this.selector);
-    selectorLinksTimer.querySelector(`[data-value="days"]`).textContent = days;
-
-    selectorLinksTimer.querySelector(
-      `[data-value="hours"]`
-    ).textContent = hours;
-
-    selectorLinksTimer.querySelector(`[data-value="mins"]`).textContent = mins;
-
-    selectorLinksTimer.querySelector(`[data-value="secs"]`).textContent = secs;
-
+  counterInterval() {
     const timerID = setInterval(() => {
-      this.__CounterStart();
+      this.counterStart();
     }, 1000);
 
-    if (currentTime >= endTime) {
+    if (new Date().getTime() >= this.targetDate.getTime()) {
       clearInterval(timerID);
       return;
     }
   }
 }
+
+
 new CountdownTimer({
   selector: "#timer-1",
-  targetDate: new Date("May 25, 2020"),
+  targetDate: new Date("May 30, 2020"),
 });
